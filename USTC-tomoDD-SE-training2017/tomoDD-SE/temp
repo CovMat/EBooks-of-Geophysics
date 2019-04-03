@@ -1,0 +1,709 @@
+1,3d0
+< c-- this version has the ability to do the resolution analysis by calculating 
+< c-- the resolution matrix.
+< 
+60c57
+<         include 'matvec6.h'
+---
+> 
+62d58
+< 	use matvec
+308a305
+>         real            v
+346d342
+<         real            d2(MAXDATA+4+MXPARI*6)   ! Data vector
+360a357
+>         integer,allocatable :: iw(:)
+371a369
+>         real,allocatable :: rw(:)
+388d385
+<         real            norm_node_spread(MAXNX,MAXNY,2*MAXNZ)
+402c399
+<         integer         i1,j1,j2,k1,kk
+---
+>         integer         i1,j1,k1
+408,437d404
+< c--- parameters for the resolution analysis
+<         integer         JA(8*MAXDATA+MAXND*MAXDATA),row2(8*MAXDATA+MAXND*MAXDATA)
+<         integer         IA(2*MAXDATA)
+<         real            der(8*MAXDATA+MAXND*MAXDATA)
+<         integer         ii,ii_orig
+<         real            norm3(MAXEVE*4+mxpari)
+<         real            res(MAXEVE*4+mxpari)
+< 
+<         real zero, one
+<         parameter(zero = 0.0, one = 1.0)
+< 
+<         character*1 jobu, jobv
+<         character*256 matfilename, sigmafilename,ufilename,vfilename
+<         integer neig,ioption(10),dim,p
+<         integer iparm(1),info, compuv, uvform
+<         real doption(10),dparm(1)
+<         real tol,eps
+< 
+<         integer izero,n1,n2
+<         real     s,qmin,qmax,alpha,beta
+<         real     tmp(MAXEVE*4+mxpari)
+<         real l2, dist, spread(MXPARI)
+< 
+< c     Save large arrays in a common block to avoid stack overflow on
+< c     certain machines.
+< c     %--------------------%
+< c     | External Functions |
+< c     %--------------------%
+<         real slamch
+<         external slamch,lsqrmv5,densemv
+442c409,418
+<         call alloc_matvec()
+---
+>         iw_size = 2*(8*MAXDATA+4*MAXEVE+MAXND*MAXDATA)+1
+>         allocate( iw(iw_size) )
+>         if (.not.allocated(iw)) print *, "Memory allocation ERROR for iw"
+> 
+>         rw_size = 8*MAXDATA+4*MAXEVE+MAXND*MAXDATA
+>         allocate( rw(rw_size) )
+>         if (.not.allocated(rw)) print *, "Memory allocation ERROR for rw"
+> 
+>         print *, "Size of IW()=",iw_size
+>         print *, "Size of RW()=",rw_size
+461,462d436
+<         call clearstat
+< 
+1304,1306d1277
+<       ii=0
+<       IA(1)=1
+< 
+1332a1304
+>             if(k1.eq.0) write(*,*)sta_lab(dt_ista(i)),src_cusp(dt_ic1(i))
+1333a1306
+>             if(k2.eq.0) write(*,*)sta_lab(dt_ista(i)),src_cusp(dt_ic2(i))
+1348,1359d1320
+<             ii=ii+1
+<             der(ii)=rw(i)
+<             JA(ii)=4*dt_ic1(i) - 3
+< 
+<             ii=ii+1
+<             der(ii)=rw(ndt+i)
+<             JA(ii)=4*dt_ic1(i) - 2
+< 
+<             ii=ii+1
+<             der(ii)=rw(2*ndt+i)
+<             JA(ii)=4*dt_ic1(i) - 1
+< 
+1365,1368d1325
+< 
+<             ii=ii+1
+<             der(ii)=rw(3*ndt+i)
+<             JA(ii)=4*dt_ic1(i)
+1374,1386d1330
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(4*ndt+i)
+<                 JA(ii)=4*dt_ic2(i) - 3
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(5*ndt+i)
+<                 JA(ii)=4*dt_ic2(i) - 2
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(6*ndt+i)
+<                 JA(ii)=4*dt_ic2(i) - 1
+< 
+1392,1396d1335
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(7*ndt+i)
+<                 JA(ii)=4*dt_ic2(i)
+< 
+1418,1422d1356
+< 
+<                       ii=ii+1
+<                       der(ii)=rw(8*ndt+m)
+<                       JA(ii)=4*nev+col(m)
+< 
+1432,1448d1365
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i) - 3
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i) - 2
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i) - 1
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i)
+< 
+1454,1459c1371
+< 			 col(m)=tmp_vs_index(k1,dt_ic1(i),k+1)
+< 
+<                          ii=ii+1
+<                          der(ii)=rw(8*ndt+m)
+<                          JA(ii)=4*nev+col(m)
+< 	
+---
+> 			 col(m)=tmp_vs_index(k1,dt_ic1(i),k+1)	
+1481,1496d1392
+< 
+<              ii=ii+1
+<              der(ii)=rw(i)
+<              JA(ii)=4*dt_ic1(i)-3
+< 
+<              ii=ii+1
+<              der(ii)=rw(ndt+i)
+<              JA(ii)=4*dt_ic1(i)-2
+< 
+<              ii=ii+1
+<              der(ii)=rw(2*ndt+i)
+<              JA(ii)=4*dt_ic1(i)-1
+< 
+<              ii=ii+1
+<              der(ii)=rw(3*ndt+i)
+<              JA(ii)=4*dt_ic1(i)
+1510,1525d1405
+<                 ii=ii+1
+<                 der(ii)=rw(4*ndt+i)
+<                 JA(ii)=4*dt_ic2(i)-3
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(5*ndt+i)
+<                 JA(ii)=4*dt_ic2(i)-2
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(6*ndt+i)
+<                 JA(ii)=4*dt_ic2(i)-1
+< 
+<                 ii=ii+1
+<                 der(ii)=rw(7*ndt+i)
+<                 JA(ii)=4*dt_ic2(i)
+< 
+1544,1547d1423
+< 
+< 		      ii=ii+1
+<                       der(ii)=rw(8*ndt+m)
+<                       JA(ii)=4*nev+col(m)
+1557,1572d1432
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i) - 3
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i) - 2
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i) - 1
+< 
+<                    ii=ii+1
+<                    der(ii)=0.0
+<                    JA(ii)=4*dt_ic2(i)
+1579,1584c1439
+< 			 col(m)=tmp_vp_index(k1,dt_ic1(i),k+1)
+< 
+<                          ii=ii+1
+<                          der(ii)=rw(8*ndt+m)
+<                          JA(ii)=4*nev+col(m)
+< 	
+---
+> 			 col(m)=tmp_vp_index(k1,dt_ic1(i),k+1)	
+1591,1592d1445
+<           IA(i+1)=ii+1
+< 
+1594c1447
+<         write(*,*)'ii before weighting..',ii
+---
+> 	
+1647d1499
+<         write(log,*)'max_norm=',max_norm
+1744,1764d1595
+<         do i=1,4*nev+npari
+<            norm(i)=0.0
+<            norm3(i)=0.0
+<         enddo
+< 
+<         do i=1,ndt
+<            do j=IA(i),IA(i+1)-1
+<               norm3(JA(j))=norm3(JA(j))+der(j)*der(j)
+<            enddo
+<         enddo
+< 
+<         do i=1,nar
+<            norm(iw(1+nar+i)) = norm(iw(1+nar+i)) + rw(i)**2
+<         enddo
+< 
+<         write(*,*)'Comparing ...1'
+<         do i=1,4*nev+npari
+<            if(abs(norm(i)-norm3(i)).gt.0.001) write(*,*)i,norm(i),norm3(i)
+<         enddo
+< 
+< 
+2081d1911
+< 
+2113,2134d1942
+<         do i=1,ndt
+<            do j=IA(i),IA(i+1)-1
+<               i1=JA(j)  ! columns
+<               if(i1.le.4*nev) then
+<                  if(fix(i1).eq.1) then ! invert location or origin time
+<                     JA(j)=new_index(i1)
+<                  else
+<                     JA(j)=new_npari+new_loc
+<                     der(j)=0.0
+<                  endif
+<               else
+<                  if(diff_node(i1-4*nev).eq.1) then
+<                     JA(j)=new_index(i1)
+<                  else
+< c          ! set index larger than the effective range?
+<                     der(j)= 0.0
+<                     JA(j)=new_npari+new_loc !
+<                  endif
+<               endif
+<            enddo
+<         enddo
+< 
+2163,2173d1970
+< 
+<         do i=1,ndt
+<            do j=IA(i),IA(i+1)-1
+<               if( JA(j).ge.1.and.JA(j).le.new_loc+new_npari) then
+<                   der(j)=der(j)/norm(JA(j))
+<               else
+<                   write(*,*) ' Column index is not in the range for der'
+<               endif    
+<            enddo
+<         enddo
+< 
+2191,2210d1987
+<         do i=1,new_loc
+<            norm_test(i) = 0.0
+<         enddo
+< 
+<         do i=1,ndt
+<            do j=IA(i),IA(i+1)-1
+<               if(JA(j).ge.1.and.JA(j).le.new_loc)
+<      &             norm_test(JA(j)) = norm_test(JA(j)) + der(j)**2
+<            enddo
+<         enddo
+<         do i=1,new_loc
+<            norm_test(i) = sqrt(norm_test(i)/nndt)
+<            if (abs(norm_test(i)-1).gt.0.001) then
+<               write(*,'("FATAL ERROR (lsqr: G(der) scaling).")')
+<               stop
+<            endif
+<         enddo
+< 
+<         write(*,*)'new_loc+new_npari', new_loc+new_npari
+< 
+2243,2255d2019
+< c-- calculate A'*d
+<         do i=1,n
+<            d2(i)=0
+<         enddo
+<         kk=iw(1)
+<         i1=1
+<         j1=kk+1
+< 
+<         do k = 1,kk
+<           d2(iw(j1+k)) = d2(iw(j1+k)) + rw(k)*d(iw(i1+k))
+<         enddo
+< 
+< 
+2266,2619d2029
+<       write(*,'("  istop = ",i1,"; acond (CND)=",f8.1,"; anorm =",f8.1,
+<      & "; arnorm =",f8.1,"; xnorm =",f8.1)')
+<      & istop, acond, anorm, arnorm, xnorm
+<       write(16,'("  istop = ",i1,"; acond (CND)=",f8.1,"; anorm =",f8.1,
+<      & "; arnorm =",f8.1,"; xnorm =",f8.1)')
+<      & istop, acond, anorm, arnorm, xnorm
+< 
+< 
+< c--- output the solution from the LSQR subroutine
+<       write(16,*)'Output the solution from LSQR:'
+<       write(16,'(20f10.6)') (x(i),i=1,new_loc+new_npari)
+<       write(16,*)'End of the solution from LSQR'
+< 
+< c---- add the function of calculating the approximate SVD
+< 
+<       write(*,*)'Now estimating the approximate SVD of the derivative matrix'
+< 
+<       m=n ! for the normal matrix
+< 
+<       neig=new_loc+new_npari
+<       tol=1e-9
+<       sigmafilename="Sigma.ascii"
+<       compuv= 1
+<       uvform= 1
+<       ufilename= "U.ascii"
+<       vfilename= "V.ascii"
+<       jobu='y'
+<       jobv='n'
+< 
+<       if (m.gt.mmax .or. n.gt.nmax) then
+<          write (*,'(a, I6, a, i6)') 'Matrix can be at most',mmax,' by ',
+<      c        nmax
+<          stop 'Matrix exceeded maximum size defined in matvec.h.'
+<       endif
+< 
+< c
+< c     Set the first column of U to zero. This will make dlansvd_irl
+< c     generate a random starting vector.
+< c
+<       call clearstat
+<       do i=1,m
+<          U(i,1) = 0.0
+<       enddo
+< 
+< c set options for DLANSVD
+< c
+<       eps = slamch('e')
+<       ioption(1) = 0
+<       ioption(2) = 1
+<       doption(1) = sqrt(eps)
+<       doption(2) = eps**(3.0/4.0)
+<       doption(3) = zero
+< 
+< c
+< c     Compute the neig largest singular values
+< c
+<       write (*,*) 'Computing the neig=',neig,' largest singular ' //
+<      c     'values and corresponding singular vectors'
+< 
+<       dparm(1)=damp
+< 
+<       call slansvd(jobu,jobv,m,n,neig,kmax,lsqrmv5,U,mmax,Sigma,bnd,
+<      c     V,nmax,tol,work,lwrk,iwork,liwrk,doption,ioption,info,
+<      c     dparm,iparm)
+< 
+<       call printstat
+< c
+< c     Print singular values and computed error bounds.
+< c
+<       write(*,*)
+<       write(*,*) '  i          sigma(i)              bnd(i)'
+<       open(22,file=sigmafilename,status='unknown')
+<       do i=1,neig
+< c         write(*,'(1I5,1p,1e15.7,1p,1e12.3)') i,Sigma(i),bnd(i)
+<          write(22,'(1I5,1p,1e15.7,1p,1e12.3)') i,Sigma(i),bnd(i)
+<       enddo
+<       close(10)
+< 
+< c
+< c     Write singular vectors.
+< c
+< 
+<       if (compuv.eq.1) then
+<          write (*,*) 'Writing left singular vectors U to ',ufilename
+< c         call writedense(ufilename,uvform+1,m,50,U,mmax)
+<          write (*,*) 'Writing right singular vectors V to ',vfilename
+< c         call writedense(vfilename,uvform+1,n,50,V,nmax)
+<       endif
+< c
+< c     Print runtime statistics
+< c
+<       call printstat
+< 
+<       write(*,*)'Finish estimating the approximate SVD of the derivative matrix'
+< 
+< c-- test if U and V are orthogonal
+<       do j=1,neig
+<         tmp(j)=0.0
+<         do i=1,m
+< c-- copy matrix V from U
+<            V(i,j)=U(i,j)
+<            tmp(j)=tmp(j)+U(i,j)*U(i,j)
+<          enddo
+<       enddo
+<       write(16,*)'Test if U is orthogonal'
+<       write(16,'(20f6.3)')(tmp(j),j=1,neig)
+< 
+< c      do j=1,neig
+< c        tmp(j)=0.0
+< c        do i=1,n
+< c           tmp(j)=tmp(j)+V(i,j)*V(i,j)
+< c         enddo
+< c      enddo
+< c      write(16,*)'Test if V is orthogonal'
+< c      write(16,'(20f6.3)')(tmp(j),j=1,neig)
+< 
+< c--- now use the approximate SVD to estimate the solution
+< 
+< c     Check for singular values close to zero
+<       write(log,'("~ backsubstitution ...")')
+<       izero = 0
+<       qmax = 0.0
+<       do i=1,neig
+<          if (Sigma(i).lt.0) then
+<             write(*,'("FATAL ERROR (svd: neg sing val). ")')
+<             stop
+<           endif
+<          if (Sigma(i).gt.qmax) qmax = Sigma(i)
+<       enddo
+<       qmin = qmax * 0.0000001
+<       !write(log, *)'Output the singular values....'
+<       !write(log, *)(Sigma(i), i=1, neig)
+<       !write(log, *)'End of singular values.....'
+<       do i=1,neig
+<          if (Sigma(i).lt.qmin) then
+<             Sigma(i) = 0.0
+<             izero = izero+1
+<          endif
+<       enddo
+< 
+<       if (izero.gt.0)then
+<          write(*,'(/,">>> ",i3," singular values close/= zero !!",/)')
+<      &   izero
+<          write(log,'(/,">>> ",i3," singular values close/= zero !!",/)')
+<      &   izero
+<       endif
+< 
+< c     Back substitution (get x' from Gx=d: x=v*diag(1/q)*t(u)*d))
+< 
+< c     Compute diag(1/q)*t(U)*d
+<       do j=1,neig
+<         s = 0.0
+<         if (Sigma(j).ne.0) then
+<            do i=1,m
+<               s = s+U(i,j)*d2(i)
+<            enddo
+<            s = s/Sigma(j)
+<         endif
+<         tmp(j) = s
+<       enddo
+< 
+< c     Multiply by V
+<       do i=1,new_loc+new_npari
+<         s = 0.0
+<         do j=1,neig
+<            s = s+V(i,j)*tmp(j)
+<         enddo
+<         x(i) = s
+<       enddo
+<       write(*,*)'Out the solution from ApproxSVD:'
+<       write(16,*)'Out the solution from ApproxSVD:'
+<       write(16,'(20f10.6)') (x(i),i=1,new_loc+new_npari)
+<       write(16,*)'End of the solution from ApproxSVD'
+< 
+< c--- calculate the resolution matrix
+< c--- calculate G'*G
+< 
+<         do i=1,new_loc+new_npari
+<            do j=1,new_loc+new_npari
+<               der2(i,j)=0.-1
+<            enddo
+<         enddo
+<         do k=1,ndt
+<            do j1=IA(k),IA(k+1)-1
+<               i=JA(j1)
+<               do j2=IA(k),IA(k+1)-1
+<                  j=JA(j2)
+<                  der2(i,j)=der2(i,j)+der(j1)*der(j2)
+<               enddo
+< 	   enddo
+< 	 enddo
+< 
+< 	 call datetime(dattim)
+< 	 write(*,*) "Starting calculating the resolution...",dattim
+< 	
+< 	 goto   11111		! pass the naive matrix multiplication
+< c     Compute diag(1/q)*t(U)*G'*G
+< 
+< 	 do i=1,neig
+< 	    do j=1,n
+< 	       U2(i,j)=0.0
+< 	       do k=1,n
+< 		  U2(i,j)=U2(i,j)+U(k,i)*der2(k,j)
+< 	       enddo
+< 	       U2(i,j)=U2(i,j)/Sigma(i)
+< 	    enddo
+< 	 enddo  
+< 	 call datetime(dattim)
+< 	 write(*,*) "Finish calculating the resolution...",dattim
+< 
+< c--- compute V*[diag(1/q)*t(U)*G'*G]
+< c--- It is only necessary to calculate the diagonal elements of
+< c--- the resolution matrix 
+< 
+<       do i=1,n
+<         res(i)=0
+<         do k=1,neig
+<            res(i)=res(i)+V(i,k)*U2(k,i)
+<         enddo
+<       enddo
+< 
+<       write(16,*)'Output the resolution'
+<       do i=1,n
+<          write(16,*)i,res(i)
+<       enddo
+< 
+< 11111	     continue
+< 
+<       call datetime(dattim)
+<       alpha=1.0
+<       beta=0.0
+<       write(*,*) "Start matrix multiplication the resolution...",dattim
+<       m1=neig
+<       n1=n
+<       k1=n
+<       call sgemm('t','n',m1,n1,k1,alpha,U,mmax,der2,densemmax,beta,U2,densemmax)
+<       do i=1,neig
+<          do j=1,n
+<             U2(i,j)=U2(i,j)/Sigma(i)
+<          enddo
+<       enddo
+<       call datetime(dattim)
+<       write(*,*) "finish matrix multiplication the resolution...",dattim
+< 
+< c--- calculate the full resolution matrix full_res
+< 
+<       alpha=1.0
+<       beta=0.0
+<       write(*,*) "Start matrix multiplication the resolution 2 ...",dattim
+<       m1=n
+<       n1=n
+<       k1=neig
+< 
+<       call sgemm('n','n',m1,n1,k1,alpha,V,mmax,U2,densemmax,beta,der2,densemmax)
+< 
+< c--- output the full resolution matrix full_res
+<       open(28,file='full_res.dat')
+<       do i=1,n
+<          write(28,'(2000f6.2)')(der2(i,j),j=1,n)
+<       enddo
+< 
+<       close(28)
+< 
+< c---- calculate the spread function
+<       do n1=new_loc+1,new_loc+new_npari
+<          spread(n1)=0
+<          nn=old_index(n1)-4*nev
+<          nn=mdexfx(nn)
+< c        calculate x and z indices of grid
+<          k1=(nn-1)/nxy2+2
+<          j1=2+(nn-1+(2-k1)*nxy2)/nx2
+<          i1=1+nn+nx2*(2-j1)+nxy2*(2-k1)
+<          if (k1.ge.nz) k1=k1+2    ! if s node
+< 
+< c--- calculate the L2 norm for each row of resolution matrix
+<          l2=0.0
+<          do n2=new_loc+1,new_loc+new_npari
+<             l2=l2+der2(n1,n2)*der2(n1,n2)
+<          enddo
+<          l2=sqrt(l2)
+<          do n2=new_loc+1,new_loc+new_npari
+<             nn=old_index(n2)-4*nev
+<             nn=mdexfx(nn)
+< c           calculate x and z indices of grid
+<             k2=(nn-1)/nxy2+2
+<             j2=2+(nn-1+(2-k2)*nxy2)/nx2
+<             i2=1+nn+nx2*(2-j2)+nxy2*(2-k2)
+<             if (k2.ge.nz) k2=k2+2    ! if s node
+< 
+< c--- calculate distances between two nodes
+<            xs=xn(i1)-xn(i2)
+<            ys=yn(j1)-yn(j2)
+<            zs=zn(k1)-zn(k2)
+<            dist=sqrt( xs*xs+ys*ys+zs*zs )
+< 
+<            if(der2(n1,n1) .ne. 0) then
+<               spread(n1)=spread(n1)+(der2(n1,n2)/l2)**2*dist
+<            endif
+<          enddo
+< 
+< c--- the real spread function should be log(spread). for some reason, the
+< c--- compilor keeps complaning the log statement. Do it in the later process.
+<          spread(n1)=spread(n1)/l2
+< 
+<       enddo
+< 
+<       do i=1,n
+<         res(i)=0
+<         do k=1,neig
+<            res(i)=res(i)+V(i,k)*U2(k,i)
+<         enddo
+<       enddo
+< 
+<       write(16,*)'Output the resolution---2'
+<       do i=1,n
+<          write(16,*)i,res(i)
+<       enddo
+< 
+< c--- add on 4/5/06
+<       do k=1,2*nz
+<          do j=1,ny
+<             do i=1,nx
+<                norm_node(i,j,k)=0.0
+<                norm_node_spread(i,j,k)=9999
+<             enddo
+<          enddo
+<       enddo
+< 
+<       do n=new_loc+1,new_loc+new_npari
+<          nn=old_index(n)-4*nev
+<          nn=mdexfx(nn)
+< c        calculate x and z indices of grid
+<          k=(nn-1)/nxy2+2
+<          j=2+(nn-1+(2-k)*nxy2)/nx2
+<          i=1+nn+nx2*(2-j)+nxy2*(2-k)
+<          if (k.ge.nz) k=k+2    ! if s node
+<          norm_node(i,j,k)=res(n)
+<          norm_node_spread(i,j,k)=spread(n)
+<         enddo
+< 
+<         open(18,file='vel2resxyz.dat')
+<         open(19,file='vel2sprxyz.dat')
+<         do k=1,2*nz
+<           do j=1,ny
+<             write(18, '(100f7.4)')(norm_node(i,j,k),i=1,nx)
+<             write(19, '(100f10.3)')(norm_node_spread(i,j,k),i=1,nx)
+<           enddo
+<         enddo
+<         close(18)
+<         close(19)
+< 
+<         stop
+< 
+< 
+3001c2411
+<      &          f7.1,f7.1,f7.1,f7.1)')xav,yav,zav,tav
+---
+>      &          f7.1,f7.1,f7.1,f7.1)'),xav,yav,zav,tav
+3325a2736,2766
+> c     output final velocity models
+> 
+> c      call freeunit(iunit0)
+> c      call freeunit(iunit1)
+>       iunit0=22
+>       iunit1=25
+>       open(iunit0,file=fn_vp,status='unknown')
+>       open(iunit1,file=fn_vs,status='unknown')
+> c     output the velocity model based on latitude, longitude 
+> c     and depth
+> 
+>       do tdep=dep0,dep1,5.0
+> c         write(*,*)'tdep=',tdep
+>          do tlat=lat0,lat1,0.5
+>             i=0
+>             do tlon=lon0,lon1,1.0
+>                isp=0 ! P-wave velocity
+>                call vel3(isp, tlon, tlat, tdep, v)
+>                i=i+1
+> 	       vp(i)=v	      
+>                if(iuses.eq.2) then ! S-wave velocity
+>                   isp=1
+>                   call vel3(isp, tlon, tlat, tdep, v)
+>                   vs(i)=v
+>                endif 
+>             enddo
+>             write(iunit0, '(200f6.3)')(vp(j),j=1,i)
+>             if(iuses.eq.2) write(iunit1, '(200f7.3)')(vs(j),j=1,i)
+>         enddo
+>       enddo
+>       

@@ -1,0 +1,30 @@
+一些可以使用的脚本的说明：
+
+matlab 程序：
+1. checkerbd_cross_lat_truevp_vs.m  checkerbd_cross_lon_truevp_vs.m  checkerbd_cross_Z_truevp_vs.m
+   用来画棋盘测试时正演的输入模型的三个切面图；
+
+2. checkerbd_cross_lat_vp_vs.m  checkerbd_cross_lon_vp_vs.m  checkerbd_cross_Z_vp_vs.m
+   用来画棋盘测试时反演结果的三个切面图；
+
+3. cross_lat_vp_vs.m  cross_lon_vp_vs.m  cross_Z_vp_vs.m
+   用来画实际数据的反演结果的三个切面图；
+
+4. eveLoc_lat_dep.m  eveLoc_lon_dep.m  eveLoc_lat_lon.m
+   用来画地震位置在三个切面的分布图；
+
+5. resolution.m
+   计算棋盘测试时棋盘的恢复度,输出的文件用于去掉反演结果中分辨率低的区域；
+
+awk 脚本：
+6. extract_DWS.awk
+   用来从输出文件tomoDD.vel中提取每个网格点的射线密度，输出的文件同样可用于去掉反演结果中分辨率低的区域；
+   用法：awk -f extract_DWS.awk tomoDD.vel
+
+7. pha2abs.awk
+   用来将phase.dat转化为absolute.dat
+
+perl 脚本：
+8. checkerboard.pl 用于棋盘测试的正演、反演。
+   用法：./checkerboard.pl MOD
+   需要注意：MOD的每一行不能有空格，不然这个脚本读取会报错。

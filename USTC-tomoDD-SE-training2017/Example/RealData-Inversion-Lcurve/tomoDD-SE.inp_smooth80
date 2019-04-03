@@ -1,0 +1,84 @@
+* RELOC.INP:
+*--- input file selection
+* cross correlation diff times:
+*Input_Files/dt.cc
+
+*
+*catalog P diff times:
+Input_Files/dt.ct
+*
+* event file:
+Input_Files/event.dat
+*
+* station file:
+Input_Files/station.dat
+*
+*--- output file selection
+* original locations:
+Output_Files/tomoDD.loc
+* relocations:
+Output_Files/tomoDD.reloc
+* station information:
+Output_Files/tomoDD.sta
+* residual information:
+Output_Files/tomoDD.res
+* source paramater information:
+
+* Velocity file
+Output_Files/tomoDD.vel
+* Vp Model
+Output_Files/Vp_model.dat
+* Vs Model
+Output_Files/Vs_model.dat
+* Absolute file
+Input_Files/absolute.dat
+*
+*--- data type selection: 
+* IDAT:  0 = sichuannthetics; 1= cross corr; 2= catalog; 3= cross & cat 
+* IPHA: 1= P; 2= S; 3= P&S
+* DIST:max dist [km] between cluster centroid and station 
+* IDAT   IPHA   DIST
+   2      3     8000
+*
+*--- event clustering:
+* OBSCC:    min # of obs/pair for crosstime data (0= no clustering)
+* OBSCT:    min # of obs/pair for network data (0= no clustering)
+* OBSCC  OBSCT   Air_dep 
+    0      0      -4.0 
+*
+*--- solution control:
+* ISTART:  	1 = from single source; 2 = from network sources
+* ISOLV:	1 = SVD, 2=lsqr
+* NSET:      	number of sets of iteration with specifications following
+* wlat,wlon:    the location (latitude and longitude) of the coordinate center 
+* CC_format:    the format of dt.cc
+* weight1, weight2, weight3: the smoothing parameters of the direction of longitude, latitude and depth
+*
+*  ISTART  ISOLV  NSET
+     2       2     1
+* iuses iuseq invdel  stepl 
+    2     0     0       5   
+* wlat   wlon   rota
+  30.3   103.3   0
+* weight1 weight2  weight3  CC_format
+    80 80 80        1
+*
+*--- data weighting and re-weighting: 
+* NITER: 		last iteration to used the following weights
+* WTCCP, WTCCS:		weight cross P, S 
+* WTCTP, WTCTS:		weight catalog P, S 
+* WRCC, WRCT:		residual threshold in sec for cross, catalog data 
+* WDCC, WDCT:  		max dist [km] between cross, catalog linked pairs
+* DAMP:    		damping (for lsqr only) 
+*       ---  CROSS DATA ----- ----CATALOG DATA ----
+* NITER WTCCP WTCCS WRCC WDCC WTCTP WTCTS WRCT WDCT WTDD DAMP JOINT THRE
+  1     0.01  0.01   -9   -9    1    0.8   6    -9  1.0  100   1    10 
+*  2     0.01  0.01   -9   -9  0.1   0.08    6  -9  10.0  160   0    10 
+*  3     0.01  0.01   -9   -9    1    0.8    5  -9    .1  300   1    10 
+*  2     0.01  0.01   -9   -9    1    0.8    5  -9    .1  150   0    10 
+*--- event selection:
+* CID: 	cluster to be relocated (0 = all)
+* ID:	cuspids of event to be relocated (8 per line)
+* CID    
+    0      
+* ID

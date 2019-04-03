@@ -1,0 +1,105 @@
+ Regional-Scale Double-Difference Seismic Tomography (tomoDD-SE)
+ ©2007-2015 Wisconsin Alumni Research Foundation.
+ All rights reserved.
+ By running this program, you represent and warrant to WARF that you have read,
+ understand and agree to the terms of the Agreement enclosed in copyright.txt
+ and that you have full authority to enter into this Agreement without obtaining
+ any other approvals.
+ Size of tmp_vp=           1320000000
+ Size of tmp_vp_index=           1324400000
+ Size of IW()=            176044001
+ Size of RW()=             88022000
+starting tomoFDD (v1.0 - 01/2003)...         Fri Jul  8 11:13:44 2016
+INPUT FILES:
+cross dtime data:  
+catalog dtime data: Input_Files/dt.ct
+events: Input_Files/event.dat
+stations: Input_Files/station.dat
+OUTPUT FILES:
+initial locations: Output_Files/tomoDD.loc
+relocated events: Output_Files/tomoDD.reloc
+event pair residuals: Output_Files/tomoDD.res
+station residuals: Output_Files/tomoDD.sta
+absolute data: Input_Files/absolute.dat
+velocity output: Output_Files/tomoDD.vel
+source parameters:  
+ Relocate all clusters
+ Relocate all events
+ iuses:           2
+Reading data ...   Fri Jul  8 11:13:44 2016
+# events =  1642
+# stations < maxdist =     60
+# catalog P dtimes =    9589
+# catalog S dtimes =    9709
+# Absolute catalog P dtimes =    4418
+# Absolute catalog S dtimes =    3956
+# dtimes total =    27672
+# events after dtime match =       1409
+# stations =     13
+
+no clustering performed.
+
+RELOCATION OF CLUSTER: 1     Fri Jul  8 11:13:44 2016
+----------------------
+Initial trial sources =  1409
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      606020
+ max_norm=   16573.891    
+ 4*nev=        5628
+ # of nonzero location and origin derivatives:        5628
+ new_loc=        5628    new_npari=        1603
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      613932
+~ lsqr ...    Fri Jul  8 11:13:56 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   100.00000       100.00000       873120.00       120.10442       146176.14       63845.242    
+
+  IT   EV  CT    RMSCT   RMSST   DX   DY   DZ   DT   OS  AQ  CND
+        %   %   ms     %    ms    m    m    m   ms    m 
+ 1    100 100  760 -62.5     0 4867 5034 7221  475    0 230   39
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      570755
+ max_norm=   16542.414    
+ 4*nev=        4708
+ # of nonzero location and origin derivatives:        4708
+ new_loc=        4708    new_npari=        1520
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      578245
+~ lsqr ...    Fri Jul  8 11:13:57 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   100.00000       100.00000       591223.94       147.01216       137181.02       61786.695    
+ 2     84  94  757  -0.3     0 4023 3634 5276  388    0  12   42
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      565800
+ max_norm=   16509.746    
+ 4*nev=        4660
+ # of nonzero location and origin derivatives:        4660
+ new_loc=        4660    new_npari=        1503
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      573196
+~ lsqr ...    Fri Jul  8 11:13:57 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   100.00000       100.00000       583558.75       141.35051       136705.27       59626.699    
+ 3     83  94  738  -2.5     0 3957 3549 5191  380    0   5   42
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      565056
+ max_norm=   16508.703    
+ 4*nev=        4640
+ # of nonzero location and origin derivatives:        4640
+ new_loc=        4640    new_npari=        1495
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      572390
+~ lsqr ...    Fri Jul  8 11:13:57 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   100.00000       100.00000       582424.63       141.14697       136875.66       59504.293    
+ 4     82  94  738  -0.1     0 3946 3542 5180  379    0   1   42
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      564924
+ max_norm=   16508.439    
+ 4*nev=        4636
+ # of nonzero location and origin derivatives:        4636
+ new_loc=        4636    new_npari=        1495
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      572258
+~ lsqr ...    Fri Jul  8 11:13:58 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   100.00000       100.00000       582127.19       141.02780       136933.30       59465.938    
+ updating the velocities
+ 5  1  82  94  737  -0.0  1715 3940 3540 5176  378  122   0   42
+
+writing out results ...

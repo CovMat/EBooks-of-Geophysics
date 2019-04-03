@@ -1,0 +1,39 @@
+ 
+SOFTWARE LICENSE AGREEMENT
+
+“DOUBLE-DIFFERENCE SEISMIC TOMOGRAPHY”
+
+FOR ACADEMIC RESEARCH USE ONLY 
+
+YOU MUST ACCEPT THE FOLLOWING TERMS TO RECEIVE PERMISSION TO USE THIS SOFTWARE.  TO ACCEPT THE FOLLOWING TERMS, SELECT "YES."  IF YOU DO NOT ACCEPT THESE TERMS, SELECT "NO," AND DO NOT USE THE SOFTWARE.
+
+This Software License Agreement (“Agreement”) is by and between you, an individual (“you”) and the Wisconsin Alumni Research Foundation ("WARF"), a nonstock, nonprofit Wisconsin corporation.  Under this Agreement, WARF is granting you a limited non-commercial, non-transferable right to install, execute and use the tomoDD Software (the “Software”) under United States Copyright No. 6,813,639 (the “Copyright”), solely as necessary to install, execute and use the Software in accordance with this Agreement, in the fields of academic research or non-profit scholarship or both (the “Licensed Field”).
+
+BY CLICKING “YES,” YOU HEREBY REPRESENT THAT YOU ARE AN INDIVIDUAL EMPLOYED BY AN ACADEMIC OR OTHER NON-PROFIT RESEARCH INSTITUTE (“Institution”) AND AGREE TO BE BOUND BY THE TERMS OF THIS AGREEMENT, INCLUDING THE WARRANTY DISCLAIMERS, LIMITATIONS OF LIABILITY AND TERMINATION PROVISIONS LOCATED DIRECTLY BELOW.
+
+WARRANTY DISCLAIMER.  WARF warrants to you that it owns the Software or otherwise has the right to grant the license granted to you in this Agreement.  WARF IS PROVIDING THE SOFTWARE TO YOU ON AN “AS IS” BASIS.  WARF MAKES NO WARRANTY AS TO THE PERFORMANCE OF THE SOFTWARE OR ANY RESULTS YOU MAY OBTAIN BY USING THE SOFTWARE.  WARF MAKES NO REPRESENTATION AND EXTENDS NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, AS TO TITLE OR NON-INFRINGEMENT OF THIRD-PARTY RIGHTS, MERCHANTABILITY OR FITNESS FOR ANY PARTICULAR PURPOSE.
+
+Limitation of Liability.  YOU ASSUME ALL RISK IN THE USE OF THE SOFTWARE, AND WARF SHALL INCUR NO LIABILITY FOR YOUR USE OF THE SOFTWARE OR FOR ANY ACT OR EVENT RELATED TO OR RESULTING FROM YOUR USE OF THE SOFTWARE.  TO THE FULLEST EXTENT PERMITTED BY LAW, IN NO EVENT SHALL WARF BE LIABLE OR OBLIGATED UNDER CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR OTHER LEGAL OR EQUITABLE THEORY, FOR ANY DAMAGES, COSTS OR EXPENSES OF ANY KIND WHATSOEVER, HOWSOEVER CAUSED, OR ANY LOST PROFITS, OR LOST DATA, COST OF PROCUREMENT OF SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.  YOU ACKNOWLEDGE THAT THE FOREGOING LIMITATIONS ARE REASONABLE AND AN ESSENTIAL PART OF THIS AGREEMENT.
+
+Termination.  Without prejudice to any other rights, WARF may terminate this Agreement if you fail to comply with the terms and conditions of this Agreement.  Upon termination of this Agreement for any reason, you immediately must destroy all copies of the Software in your possession or control and must send WARF a written notice confirming destruction is complete.
+
+License Grant.  By selecting “YES,” WARF grants to you a non-exclusive, royalty-free, non-sublicensable, non-transferable license, limited to the Licensed Field, to use the Software and to internally display (e.g. post in a classroom) the Software solely for academic research or non-profit scholarly purposes.  WARF expressly reserves all other rights.
+
+Intellectual Property.  WARF retains all right, title and interest in and to the Software, including, without limitation, all intellectual property rights that may exist in the Software, and all copies of the Software, regardless of form or medium, including the Copyright.  Nothing in this Agreement grants to you any additional rights to the Software or any updates, new releases, commercial versions, or any other software program.
+
+Limitations on Use.  You may not take any of the following actions:  (1) modify, translate or otherwise create any derivative works of the Software; (2) publicly display (e.g. post on the Internet) or publicly perform (e.g. present at a conference) the Software; (3) sell, lease, license, rent or lend the Software; and (4) make any other use of the Software beyond the scope of the rights granted to you herein, including its use for any commercial purposes whatsoever.  You must fully reproduce and not obscure, alter or remove any of WARF’s, or the inventors, copyright notices or other proprietary notices that appear on the Software.
+
+Submissions.  If you decide to transmit, by any means or media, any materials or other information (including without limitation, any ideas, concepts or techniques for improvements to the Software) to WARF, whether as feedback, data, questions, comments, suggestions or the like, you are providing such submissions to WARF on an unrestricted and non-confidential basis, and you hereby grant WARF a non-exclusive, royalty-free, worldwide, perpetual, assignable, irrevocable license, with the right to sublicense, to use, copy, transmit, distribute, create derivative works of, publicly display and publicly perform such submissions in the Licensed Field.  You may contact WARF for any purpose under this Agreement or otherwise at:
+
+      Wisconsin Alumni Research Foundation
+
+      P.O. Box 7365, Madison, Wisconsin 53726
+
+      Telephone:  (608) 263-2500  Fax:  (608) 263-1064
+
+Law; Electronic Agreement.  The terms of this Agreement are governed by the laws of the United States of America, and the State of Wisconsin, and you hereby submit to the nonexclusive jurisdiction of those courts for purposes of any dispute arising under this Agreement.  You acknowledge and agree to be bound by this Agreement by executing it in electronic form.  By selecting “YES,” you affirmatively agree to the terms of this Agreement.  If you select “NO,” you will not be permitted to install or use the Software.
+
+By selecting “YES,” you represent and warrant to WARF that you have read, understand and agree to the terms of this Agreement and that you have full authority to enter into this Agreement without obtaining any other approvals.  Please print a copy of this Agreement for your records. 
+  
+ 
+WARF 7/09

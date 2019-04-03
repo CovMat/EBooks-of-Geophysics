@@ -1,0 +1,25 @@
+1. 32位的电脑编译程序时请使用：Makefile.32  &   Makefile.32_syn;
+
+       终端运行：make clean -f Makefile.32; make -f Makefile.32
+
+            以及 make clean -f Makefile.32_syn; make -f Makefile.32_syn
+
+   64位的电脑编译程序时请使用：Makefile     &   Makefile_syn
+
+       终端运行：make clean; make
+
+            以及 make clean -f Makefile_syn; make -f Makefile_syn
+
+
+2. gfortran编译器问题：
+
+   经过测试，该程序要求gfortran的版本不能太高，所以有些人的问题应该和编译器太新有关。
+
+   解决办法：下载旧版本的gfortran编译器，比如gfortran-4.7或更低的版本。
+
+             在ubuntu系统，终端运行sudo apt-get install gfortran-4.7即可。
+             
+             如果找不到gfortran-4.7的版本，也可以试试4.6，4.5等版本。
+
+             最后检查下你的Makefile里的编译器名称（第5行）是不是你新下载的版本。没错的话，重新编译即可。
+       

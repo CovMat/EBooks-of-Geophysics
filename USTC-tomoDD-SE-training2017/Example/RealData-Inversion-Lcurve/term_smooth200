@@ -1,0 +1,94 @@
+ Regional-Scale Double-Difference Seismic Tomography (tomoDD-SE)
+ ©2007-2015 Wisconsin Alumni Research Foundation.
+ All rights reserved.
+ By running this program, you represent and warrant to WARF that you have read,
+ understand and agree to the terms of the Agreement enclosed in copyright.txt
+ and that you have full authority to enter into this Agreement without obtaining
+ any other approvals.
+ Size of tmp_vp=           1320000000
+ Size of tmp_vp_index=           1324400000
+ Size of IW()=            176044001
+ Size of RW()=             88022000
+starting tomoFDD (v1.0 - 01/2003)...         Fri Jul  8 11:14:07 2016
+INPUT FILES:
+cross dtime data:  
+catalog dtime data: Input_Files/dt.ct
+events: Input_Files/event.dat
+stations: Input_Files/station.dat
+OUTPUT FILES:
+initial locations: Output_Files/tomoDD.loc
+relocated events: Output_Files/tomoDD.reloc
+event pair residuals: Output_Files/tomoDD.res
+station residuals: Output_Files/tomoDD.sta
+absolute data: Input_Files/absolute.dat
+velocity output: Output_Files/tomoDD.vel
+source parameters:  
+ Relocate all clusters
+ Relocate all events
+ iuses:           2
+Reading data ...   Fri Jul  8 11:14:07 2016
+# events =  1642
+# stations < maxdist =     60
+# catalog P dtimes =    9589
+# catalog S dtimes =    9709
+# Absolute catalog P dtimes =    4418
+# Absolute catalog S dtimes =    3956
+# dtimes total =    27672
+# events after dtime match =       1409
+# stations =     13
+
+no clustering performed.
+
+RELOCATION OF CLUSTER: 1     Fri Jul  8 11:14:08 2016
+----------------------
+Initial trial sources =  1409
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      606020
+ max_norm=   16573.891    
+ 4*nev=        5628
+ # of nonzero location and origin derivatives:        5628
+ new_loc=        5628    new_npari=        1603
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      613932
+~ lsqr ...    Fri Jul  8 11:14:20 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   200.00000       100.00000       913340.75       55.033176       150167.13       66886.469    
+
+  IT   EV  CT    RMSCT   RMSST   DX   DY   DZ   DT   OS  AQ  CND
+        %   %   ms     %    ms    m    m    m   ms    m 
+ 1    100 100  796 -60.7     0 5054 5221 7480  512    0 255   37
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      565280
+ max_norm=   16517.480    
+ 4*nev=        4608
+ # of nonzero location and origin derivatives:        4608
+ new_loc=        4608    new_npari=        1498
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      572626
+~ lsqr ...    Fri Jul  8 11:14:20 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   200.00000       100.00000       602071.13       128.33070       139626.55       64122.129    
+ 2     82  94  791  -0.7     0 4157 3696 5429  407    0   9   42
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      561014
+ max_norm=   16503.123    
+ 4*nev=        4572
+ # of nonzero location and origin derivatives:        4572
+ new_loc=        4572    new_npari=        1476
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      568268
+~ lsqr ...    Fri Jul  8 11:14:20 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   200.00000       100.00000       596793.81       124.48863       139471.06       61767.883    
+ 3     81  93  769  -2.8     0 4042 3595 5363  397    0   1   40
+ Preparing joint inversion....
+ # of nonzero model derivatives before smoothing      560811
+ max_norm=   16501.666    
+ 4*nev=        4568
+ # of nonzero location and origin derivatives:        4568
+ new_loc=        4568    new_npari=        1475
+ Applying smoothing constraint!
+ Total number of nonzero model derivatives after smoothing      568063
+~ lsqr ...    Fri Jul  8 11:14:21 2016
+ smooth, damp, xnorm, xnorm_vel, rnorm, rnorm_wt:   200.00000       100.00000       596432.88       124.20670       139643.63       61621.145    
+ updating the velocities
+ 4  1  81  93  767  -0.2  1805 4035 3584 5363  396  154   0   42
+
+writing out results ...

@@ -1,0 +1,29 @@
+starting tomoFDD (v1.0 - 01/2003)...         Fri Jul  8 11:40:01 2016
+Input parameters: (from tomoDD-SE.inp_smooth5)
+  cross dtime file:  
+  catalog dtime file: Input_Files/dt.ct
+  station file: Input_Files/station.dat
+  event file: Input_Files/event.dat
+  initial locations: Output_Files/tomoDD.loc
+  absolute data file: Input_Files/absolute.dat
+  velocity output file: Output_Files/tomoDD.vel
+  relocated events: Output_Files/tomoDD.reloc
+ Air depth is:  -4.0000000    
+  event pair file: Output_Files/tomoDD.res
+  station residual file: Output_Files/tomoDD.sta
+  source parameter file:  
+  IDATA=  2  IPHASE=  3  MAXDIST= 8000.
+  MINOBS_CC=   0  MINOBS_CT=   0
+  ISTART= 2  ISOLV= 2
+  ITER  1- 1: DAMP=   100.0
+    WT_CCP=  0.0100  WT_CCS=  0.0100  MAXR_CC= -9.0000  MAXD_CC=   -9.00
+    WT_CTP=  1.0000  WT_CTS=  0.8000  MAXR_CT=  6.0000  MAXD_CT=   -9.00  WT_CTD=    1.00  JOINT=   1  THRE= 10.0000
+ Relocate all clusters
+ Relocate all events
+ Rotation angle:   0.0000000    
+Coordinate center---
+Lat:  30.3000Lon: 103.3000
+Computational step size:    0.0000
+Ray-tracing step size:    5.0000
+Model derivatives calculation parameters---
+iuses:   2invdel:   0iuseq=  0
