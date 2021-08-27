@@ -28,3 +28,5 @@ Ten Lectures of Wavelets（小波十讲）
 【奥本海姆】离散时间信号处理习题答案
 
 USTC-tomoDD-SE
+
+Seismic Tomography - Theory And Practice
